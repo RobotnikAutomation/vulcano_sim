@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- roslaunch arguments -->
+  <arg name="debug" default="false"/>
+  <arg name="gui" default="true"/>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description"
+         command="$(find xacro)/xacro.py '$(find vulcano_torso_description)/robots/vulcano_torso_standalone.urdf.xacro'" />
+         
+  <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -model vulcano_torso -param robot_description"/>
+
+  <!-- vulcano_torso_control launch file -->
+  <include file="$(find vulcano_torso_control)/launch/vulcano_torso_control.launch" />
+  
+  <!-- state_publisher launch file: launches robot_state_publisher and joint_state controllers -->
+  <include file="$(find vulcano_torso_gazebo)/launch/state_publisher.launch" />
+
+  <!-- launch pad -->
+  <!-- include file="$(find vulcano_torso_pad)/launch/vulcano_torso_pad.launch" / -->
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="worlds/empty.world" /> <!--$(find vulcano_torso_gazebo)/worlds/vulcano_torso.world"/ --> <!-- TODO: poner mundo -->
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="headless" value="false"/>
+  </include>
+
+
+</launch>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Load joint controller configurations from YAcd .ML file to parameter server -->
+  <rosparam file="$(find vulcano_torso_control)/config/controllers.yaml" command="load"/>
+
+  <!-- load the controllers --> <!-- TODO: revisar nombres, espacio de nombres, etc -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/vulcano_torso" args="--namespace=/vulcano_torso
+                      torso_controller
+                      "/>
+
+</launch>
+
