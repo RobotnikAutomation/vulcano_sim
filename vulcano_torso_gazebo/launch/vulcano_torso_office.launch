@@ -24,7 +24,7 @@
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find vulcano_torso_gazebo)/worlds/vulcano_torso.world"/>
+    <arg name="world_name" value="$(find vulcano_torso_gazebo)/worlds/vulcano_torso_office.world"/>
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="paused" value="false"/>
