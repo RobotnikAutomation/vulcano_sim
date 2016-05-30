@@ -5,20 +5,22 @@
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
 
-  <!-- Load the URDF into the ROS Parameter Server -->
-  <param name="robot_description"
-         command="$(find xacro)/xacro.py '$(find vulcano_torso_description)/robots/vulcano_torso_standalone.urdf.xacro'" />
-         
-  <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
-  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-        args="-urdf -model vulcano_torso -param robot_description"/>
+  <!-- vulcano_torso_state: loads robot description and launches robot_state_publisher -->
+  <group ns="vulcano_torso" >
 
-  <!-- vulcano_torso_control launch file -->
-  <include file="$(find vulcano_torso_control)/launch/vulcano_torso_control.launch" />
+    <include file="$(find vulcano_torso_description)/launch/vulcano_torso_state.launch" />
+           
+    <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
+    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-urdf -model vulcano_torso -param robot_description"/>
   
-  <!-- state_publisher launch file: launches robot_state_publisher and joint_state controllers -->
-  <include file="$(find vulcano_torso_gazebo)/launch/state_publisher.launch" />
+    <!-- vulcano_torso_control launch file -->
+    <include file="$(find vulcano_torso_control)/launch/vulcano_torso_control.launch" />
+    
+    <!-- state_publisher launch file: launches joint_state controllers -->
+    <include file="$(find vulcano_torso_gazebo)/launch/state_publisher.launch" />
 
+  </group>
   <!-- launch pad -->
   <!-- include file="$(find vulcano_torso_pad)/launch/vulcano_torso_pad.launch" / -->
 

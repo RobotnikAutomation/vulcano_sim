@@ -1,15 +1,14 @@
-vulcano_torso:
-  torso_controller:
-    type: position_controllers/JointTrajectoryController
-    joints:
-       - revolution_joint
-       - elevation_joint
-    constraints:
-        goal_time: 0.6
-        stopped_velocity_tolerance: 0.05
-    stop_trajectory_duration: 0.5
-    state_publish_rate:  25
-    action_monitor_rate: 10
+torso_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+     - revolution_joint
+     - elevation_joint
+  constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.05
+  stop_trajectory_duration: 0.5
+  state_publish_rate:  25
+  action_monitor_rate: 10
 
 #  elevation_controller:
 #      type: effort_controllers/JointPositionController

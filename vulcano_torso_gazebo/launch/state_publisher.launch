@@ -2,15 +2,6 @@
 <launch>
     <rosparam file="$(find vulcano_torso_gazebo)/config/state_publisher.yaml" command="load"/>
     
-    <!--<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/vulcano_torso" args="- -namespace=/vulcano_torso-->
-    <!--joint_read_state_controller-->
-    <!--"/>-->
-    
-    <node name="joint_read_state_spawner" pkg="controller_manager" type="controller_manager" ns="/vulcano_torso" args="spawn joint_read_state_controller" respawn="false" output="screen"/>
-    
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
-        <remap from="/joint_states" to="/vulcano_torso/joint_states"/>
-        <!-- TODO: check namespace -->
-    </node>
+    <node name="joint_read_state_spawner" pkg="controller_manager" type="controller_manager" args="spawn joint_read_state_controller" respawn="false" output="screen"/>
 
 </launch>
