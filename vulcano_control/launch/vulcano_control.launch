@@ -1,23 +1,16 @@
 <?xml version="1.0"?>
 <launch>
 
-  <!-- Load joint controller configurations from YAcd .ML file to parameter server -->
-  <rosparam file="$(find vulcano_control)/config/left_arm_controller.yaml" command="load"/>
-  <rosparam file="$(find vulcano_control)/config/right_arm_controller.yaml" command="load"/>
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find vulcano_control)/config/controllers.yaml" command="load"/>
 
   <!-- load the controllers -->
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" ns="/vulcano" args="--namespace=/vulcano
+  <node name="arm_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" args="--namespace=/vulcano
                       left_arm_controller
                       right_arm_controller
-                      "/>                      
+                      --shutdown-timeout 1"/>                      
                         
-  <!-- once the joint_state is published, run the robot_state_publisher, the namespace has to be adapted --> 
-  <!-- convert joint states to TF transforms for rviz, etc -->
-  <node name="robot_state_publisher_base" pkg="robot_state_publisher" type="robot_state_publisher"
-    respawn="false" output="screen">
-    <remap from="/joint_states" to="/vulcano/joint_states" />
-  </node>
 
 </launch>
 
