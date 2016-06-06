@@ -1,8 +1,8 @@
 torso_controller:
   type: position_controllers/JointTrajectoryController
   joints:
-     - revolution_joint
-     - elevation_joint
+     - torso_revolution_joint
+     - torso_elevation_joint
   constraints:
       goal_time: 0.6
       stopped_velocity_tolerance: 0.05
