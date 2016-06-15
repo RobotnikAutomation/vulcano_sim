@@ -6,13 +6,13 @@
   <arg name="gui" default="true"/>
 
   <!-- vulcano_torso_state: loads robot description and launches robot_state_publisher -->
-  <group ns="vulcano_torso" >
+  <group ns="vulcano" >
 
     <include file="$(find vulcano_torso_description)/launch/vulcano_torso_state.launch" />
            
     <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
     <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-          args="-urdf -model vulcano_torso -param robot_description"/>
+          args="-urdf -model vulcano -param robot_description"/>
   
     <!-- vulcano_torso_control launch file -->
     <include file="$(find vulcano_torso_control)/launch/vulcano_torso_control.launch" />

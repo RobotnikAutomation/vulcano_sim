@@ -4,10 +4,11 @@
   <!-- roslaunch arguments -->
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
+  <arg name="gazebo_world" default="vulcano"/>
 
   <group ns="vulcano" >
 
-    <!-- vulcano_state: loads robot description and launches robot_state_publisher -->
+    <!-- uploads robot_description and runs robot_state_publisher -->
     <include file="$(find vulcano_description)/launch/vulcano_state.launch" />
            
     <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
@@ -19,8 +20,16 @@
     <include file="$(find vulcano_torso_control)/launch/vulcano_torso_control.launch" />
     <include file="$(find vulcano_base_control)/launch/vulcano_base_control.launch" />
     
-    <!-- state_publisher launch file: launches joint_state controllers -->
-    <include file="$(find vulcano_gazebo)/launch/state_publisher.launch" />
+    <!-- to publish joint_state -->
+    <include file="$(find vulcano_gazebo)/launch/joint_state_controller.launch" />
+
+    <!-- launch pad -->
+    <include file="$(find vulcano_base_pad)/launch/vulcano_base_pad.launch" />
+
+    <!-- launch rviz -->
+    <group if="$(arg gui)">
+        <node name="rviz" type="rviz" pkg="rviz" args="-d $(find vulcano_description)/launch/vulcano.rviz" />
+    </group>
 
   </group>
   <!-- launch pad -->
@@ -28,7 +37,7 @@
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" default="worlds/empty.world"/> <!--value="$(find vulcano_torso_gazebo)/worlds/vulcano_torso.world"/-->
+    <arg name="world_name" value="$(find vulcano_gazebo)/worlds/$(arg gazebo_world).world"/>
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="paused" value="false"/>
@@ -37,5 +46,4 @@
   </include>
 
 
-   <node type="rviz" name="rviz" pkg="rviz" />
 </launch>
