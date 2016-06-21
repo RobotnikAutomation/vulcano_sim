@@ -6,7 +6,7 @@
 
   <!-- load the controllers --> <!-- TODO: review namespaces -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" args="--namespace=/vulcano torso_controller --shutdown-timeout 1"/>
+    output="screen" args="torso_controller --shutdown-timeout 1"/>
     
  <!--<node name="torso_spawner" pkg="controller_manager" type="controller_manager" args="spawn torso_controller" respawn="false" output="screen"/>-->
 
