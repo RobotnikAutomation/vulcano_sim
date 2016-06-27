@@ -4,10 +4,11 @@
   <!-- roslaunch arguments -->
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
+  <arg name="gazebo_world" default="vulcano_torso"/>
 
-  <!-- vulcano_torso_state: loads robot description and launches robot_state_publisher -->
   <group ns="vulcano" >
 
+    <!-- uploads robot_description and runs robot_state_publisher -->
     <include file="$(find vulcano_torso_description)/launch/vulcano_torso_state.launch" />
            
     <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
@@ -26,7 +27,7 @@
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find vulcano_torso_gazebo)/worlds/vulcano_torso.world"/>
+    <arg name="world_name" value="$(find vulcano_torso_gazebo)/worlds/$(arg gazebo_world).world"/>
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="paused" value="false"/>
