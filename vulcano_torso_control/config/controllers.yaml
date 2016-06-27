@@ -1,5 +1,6 @@
 torso_controller:
   type: position_controllers/JointTrajectoryController
+#  type: effort_controllers/JointTrajectoryController
   joints:
      - torso_revolution_joint
      - torso_elevation_joint
@@ -9,6 +10,9 @@ torso_controller:
   stop_trajectory_duration: 0.5
   state_publish_rate:  25
   action_monitor_rate: 10
+  gains: # for effort controller
+    torso_revolution_joint: {p: 100.0, i: 0.01, d: 10.0}
+    torso_elevation_joint: {p: 100.0, i: 0.01, d: 10.0}
 
 pantilt_controller:
   type: position_controllers/JointTrajectoryController
