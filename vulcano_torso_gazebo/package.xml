@@ -6,7 +6,7 @@
       Gazebo wrapper for the Universal UR5/10 robot arms.
   </description>
 
-  
+
   <author>Marc Bosch-Jorge</author>
   <author email="mbosch@robotnik.es">Marc Bosch-Jorge</author>
   <maintainer email="mbosch@robotnik.es">Marc Bosch-Jorge</maintainer>
@@ -17,15 +17,13 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   <run_depend>vulcano_description</run_depend>
-  <run_depend>gazebo_ros_pkgs</run_depend>
   <run_depend>gazebo_ros</run_depend>
   <run_depend>gazebo_ros_control</run_depend>
-  <run_depend>ros_controllers</run_depend>
   <run_depend>joint_state_controller</run_depend>
   <run_depend>joint_trajectory_controller</run_depend>
   <run_depend>effort_controllers</run_depend>
   <run_depend>robot_state_publisher</run_depend>
-  
+
 
   <export>
   </export>
